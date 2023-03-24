@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1097349085877",
+    "project_id": "masy-d4f8a",
+    "storage_bucket": "masy-d4f8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097349085877:android:2dfad57ace3fbab1bf9cfc",
+        "android_client_info": {
+          "package_name": "com.example.masy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097349085877-ve6fc3rnl80fa2u4gig6t2pngba5e0v3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDjrkT49gnJkPIpw8edXi2vcQse_t-eq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097349085877-ve6fc3rnl80fa2u4gig6t2pngba5e0v3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
