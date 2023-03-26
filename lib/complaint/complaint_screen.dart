@@ -365,7 +365,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                 if (_formKey.currentState!.validate()) {
                   if (_isImageUploaded != false && _complaintDate != null) {
                     try {
-                      complaintAdd(_titleController.text, _complaintDate!, _descController.text, imageUrl, 0, uid);
+                      complaintAdd(_titleController.text, _complaintDate!, _descController.text, imageUrl, 0, uid,
+                          auth.currentUser?.email.toString());
                       _titleController.text = "";
                       _dateController.text = "";
                       _descController.text = "";

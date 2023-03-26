@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:masy/complaint/complaint_edit_screen.dart';
@@ -23,6 +24,8 @@ class HistoryDetailScreen extends StatefulWidget {
 class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
     final dynamic complaint = widget.complaint;
     final db = FirebaseFirestore.instance;
     return Scaffold(
@@ -68,7 +71,12 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                 ),
           IconButton(
             onPressed: () {
-              buildWarningDeleteDialog(context, complaint['id']).show();
+              buildWarningDeleteDialog(
+                context,
+                complaint['id'],
+                complaint['title'],
+                auth.currentUser?.email.toString(),
+              ).show();
             },
             icon: const Icon(
               Icons.delete_forever_rounded,
@@ -276,7 +284,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
   }
 }
 
-AwesomeDialog buildWarningDeleteDialog(BuildContext context, String id) {
+AwesomeDialog buildWarningDeleteDialog(BuildContext context, String id, String title, String? email) {
   return AwesomeDialog(
     context: context,
     dialogType: DialogType.warning,
@@ -295,7 +303,7 @@ AwesomeDialog buildWarningDeleteDialog(BuildContext context, String id) {
     btnCancelText: 'Tidak',
     btnOkOnPress: () {
       try {
-        complaintDelete(id);
+        complaintDelete(id, title, email);
         Navigator.pop(context);
       } catch (e) {
         log(e.toString());

@@ -412,7 +412,7 @@ class _ComplaintEditScreenState extends State<ComplaintEditScreen> {
                         if (complaint['image'].toString().isNotEmpty) {
                           try {
                             complaintUpdate(complaint['id'], _titleController.text, _complaintDate!, _descController.text,
-                                imageUrl, 0, uid);
+                                imageUrl, 0, uid, auth.currentUser?.email.toString());
                             _titleController.text = "";
                             _dateController.text = "";
                             _descController.text = "";

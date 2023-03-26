@@ -143,7 +143,8 @@ class _MenuScreenState extends State<MenuScreen> {
               buildMenuItem("Dashboard", Icons.dashboard_rounded, 0),
               buildMenuItem("Complaint List", Icons.newspaper_rounded, 1),
               buildMenuItem("Officer List", Icons.people_alt_rounded, 2),
-              buildMenuItem("Logout", Icons.logout, 3),
+              buildMenuItem("History Log", Icons.history, 3),
+              buildMenuItem("Logout", Icons.logout, 4),
               const Spacer(),
             ],
           ),
@@ -161,7 +162,7 @@ class _MenuScreenState extends State<MenuScreen> {
         style: itemTitle,
       ),
       onTap: () {
-        if (index == 3) {
+        if (index == 4) {
           ZoomDrawer.of(context)!.close();
           FirebaseAuth.instance.signOut();
           Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);

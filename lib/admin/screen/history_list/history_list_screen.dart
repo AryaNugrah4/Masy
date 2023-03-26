@@ -5,10 +5,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:masy/admin/screen/history_list/history_add_screen.dart';
 import 'package:masy/admin/screen/menu/menu_widget.dart';
-import 'package:masy/admin/screen/officer_list/officer_add_screen.dart';
-import 'package:masy/admin/screen/officer_list/officer_edit_screen.dart';
-import 'package:masy/models/user.dart';
 import 'package:masy/shared/style.dart';
 import 'package:open_file/open_file.dart';
 import 'package:shimmer/shimmer.dart';
@@ -16,52 +14,48 @@ import 'package:excel/excel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class OfficerListScreen extends StatefulWidget {
-  const OfficerListScreen({Key? key}) : super(key: key);
+class HistoryListScreen extends StatefulWidget {
+  const HistoryListScreen({Key? key}) : super(key: key);
 
   @override
-  State<OfficerListScreen> createState() => _OfficerListScreenState();
+  State<HistoryListScreen> createState() => _HistoryListScreenState();
 }
 
-class _OfficerListScreenState extends State<OfficerListScreen> {
+class _HistoryListScreenState extends State<HistoryListScreen> {
   bool _isLoading = true;
-  int _totalOfficers = 0;
+  int _totalHistorys = 0;
   final db = FirebaseFirestore.instance;
 
   Future countDocumentsInCollection() async {
-    QuerySnapshot querySnapshot = await db.collection('users').where('role', isEqualTo: 'officer').get();
+    QuerySnapshot querySnapshot = await db.collection('history').get();
     int count = querySnapshot.size;
     setState(() {
-      _totalOfficers = count;
+      _totalHistorys = count;
       _isLoading = false;
     });
   }
 
-  Future exportOfficerToExcel() async {
+  Future exportHistoryToExcel() async {
     PermissionStatus status = await Permission.storage.request();
     if (status != PermissionStatus.granted) return;
 
     Directory? directory = await getExternalStorageDirectory();
-    String fileName = "officerData1.xlsx";
+    String fileName = "historyLog.xlsx";
     String filePath = "${directory!.parent.parent.parent.parent.path}/Download/$fileName";
 
     try {
-      QuerySnapshot querySnapshot = await db.collection('users').where('role', isEqualTo: 'officer').get();
+      QuerySnapshot querySnapshot = await db.collection('history').get();
       var workbook = Excel.createExcel();
       var sheet = workbook['Sheet1'];
       // Add headers to worksheet
-      sheet.appendRow(['ID', 'Fullname', 'Username', 'NIK', 'Role', 'Phone', 'Email', 'Password']);
+      sheet.appendRow(['ID', 'Email', 'Log']);
       // Add data to worksheet
       for (var document in querySnapshot.docs) {
         dynamic documentData = document.data();
         var row = [
           documentData!['id'].toString(),
-          documentData!['fullname'].toString(),
-          documentData!['username'].toString(),
-          documentData!['nik'].toString(),
-          documentData!['role'].toString(),
-          documentData!['phone'].toString(),
-          documentData!['email'].toString(),
+          documentData['email'].toString(),
+          documentData['log'].toString(),
         ];
         sheet.appendRow(row);
       }
@@ -125,7 +119,7 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
       appBar: AppBar(
         backgroundColor: mainColor,
         title: Text(
-          "Officer List",
+          "History List",
           style: appBarTitleWhite,
         ),
         centerTitle: true,
@@ -156,12 +150,12 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
                           ),
                         )
                       : Text(
-                          "$_totalOfficers Officers",
+                          "$_totalHistorys Histories",
                           style: officerCount,
                         ),
                   TextButton(
                       onPressed: () {
-                        exportOfficerToExcel();
+                        exportHistoryToExcel();
                       },
                       style: TextButton.styleFrom(backgroundColor: Colors.transparent, elevation: 0),
                       child: Row(
@@ -184,13 +178,13 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
               ),
               SizedBox(height: 5.h),
               Text(
-                "You can manage Officers here",
+                "You can manage Histories here",
                 style: officerTitleBig,
               ),
               SizedBox(height: 10.h),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const OfficerAddScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HistoryAddScreen()));
                 },
                 child: Container(
                   width: 306.w,
@@ -225,7 +219,7 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
                             width: 10.w,
                           ),
                           Text(
-                            'Add a new Officer',
+                            'Add a new History',
                             style: officerAdd,
                           ),
                         ],
@@ -240,7 +234,7 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
               ),
               SizedBox(height: 35.h),
               StreamBuilder<QuerySnapshot>(
-                stream: db.collection('users').where('role', isEqualTo: 'officer').snapshots(),
+                stream: db.collection('history').snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     return Center(
@@ -257,12 +251,12 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
                     return ListView(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      children: snapshot.data!.docs.map((user) {
+                      children: snapshot.data!.docs.map((data) {
                         return Column(
                           children: [
                             SizedBox(
                               width: 306.w,
-                              height: 50.h,
+                              height: 70.h,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -286,12 +280,18 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            user['fullname'],
+                                            // user['fullname'],
+                                            data['email'],
                                             style: officerName,
                                           ),
-                                          Text(
-                                            user['role'],
-                                            style: officerRole,
+                                          SizedBox(
+                                            width: 200.w,
+                                            child: Text(
+                                              // user['role'],
+                                              // "Pengaduan 'Jalan Bolong' baru saja ditambahkan",
+                                              data['log'],
+                                              style: officerRole,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -302,8 +302,18 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => OfficerEditScreen(
-                                                    users: Users.fromJson(user.data() as Map<String, dynamic>))));
+                                                builder: (context) => HistoryAddScreen(
+                                                      isEdit: true,
+                                                      log: data['log'],
+                                                      email: data['email'],
+                                                      logId: data.id,
+                                                    )));
+
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) => HistoryEditScreen(
+                                        //             users: Users.fromJson(user.data() as Map<String, dynamic>))));
                                       },
                                       icon: Icon(
                                         Icons.remove_red_eye_rounded,
@@ -311,9 +321,6 @@ class _OfficerListScreenState extends State<OfficerListScreen> {
                                       )),
                                 ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 15.h,
                             ),
                           ],
                         );

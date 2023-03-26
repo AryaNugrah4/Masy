@@ -68,8 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   CircleAvatar(
                     radius: 60.r,
-                    backgroundImage: const NetworkImage(
-                        "https://asset.kompas.com/crops/k4L8-PrL_OyccVkK8SOYj3e-zdg=/0x0:1400x933/750x500/data/photo/2020/02/23/5e51f3cac5ce1.jpg"),
+                    backgroundImage: const AssetImage("assets/default.png"),
                     backgroundColor: Colors.transparent,
                   ),
                   SizedBox(

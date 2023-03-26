@@ -35,17 +35,14 @@ class _SplashScreenState extends State<SplashScreen> {
           String? role = await roleCheck();
           if (mounted) {
             if (role == 'public') {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/botnavbar', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(context, '/botnavbar', (route) => false);
             } else if (role == 'officer' || role == 'admin') {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/menu-panel', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(context, '/menu-panel', (route) => false);
             }
           }
         } else {
           if (mounted) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/login', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
           }
         }
       });
@@ -57,8 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
     FirebaseAuth auth = FirebaseAuth.instance;
     String uid = auth.currentUser!.uid.toString();
     print(uid);
-    final userDoc =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
     final users = Users.fromJson(userDoc.data()!);
     role = users.role;
     return role;
@@ -74,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(
               child: Image.asset(
-            'assets/logo.png',
+            'assets/logo-ss.png',
             width: 294.w,
             height: 294.h,
           )),

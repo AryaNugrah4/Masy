@@ -57,7 +57,7 @@ class _OfficerAddScreenState extends State<OfficerAddScreen> {
             ),
             Center(
               child: Image.asset(
-                "assets/signup-img.png",
+                "assets/img-signup.png",
                 width: 180.w,
                 height: 180.h,
               ),

@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Color mainColor = HexColor('#247CFF');
+Color bgColor = HexColor('#90949B');
 Color secondaryColor = HexColor('#6DB16B');
 Color accent = HexColor('#F3FCFB');
 Color red = HexColor('#FF6C6C');
@@ -82,7 +83,7 @@ TextStyle homeTitle = GoogleFonts.poppins(
 );
 
 TextStyle homeSubtitle = GoogleFonts.poppins(
-  fontSize: 14.sp,
+  fontSize: 12.sp,
   color: accent.withOpacity(0.70),
   fontWeight: FontWeight.w400,
 );

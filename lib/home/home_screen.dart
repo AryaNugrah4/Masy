@@ -98,8 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   CircleAvatar(
                     radius: 20.r,
-                    backgroundImage: const NetworkImage(
-                        "https://asset.kompas.com/crops/k4L8-PrL_OyccVkK8SOYj3e-zdg=/0x0:1400x933/750x500/data/photo/2020/02/23/5e51f3cac5ce1.jpg"),
+                    backgroundImage: const AssetImage("assets/default.png"),
                     backgroundColor: Colors.transparent,
                   ),
                 ],
@@ -110,38 +109,39 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 width: 314.w,
                 decoration: BoxDecoration(
-                  color: mainColor,
+                  color: bgColor,
                   borderRadius: BorderRadius.circular(10.r),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/home-bg-img.png"),
-                    alignment: Alignment.bottomCenter,
-                  ),
+                  // image: const DecorationImage(
+                  //   image: AssetImage("assets/bg-img-home-users.png"),
+                  //   alignment: Alignment.bottomCenter,
+                  // ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 52.h, left: 15.w, right: 5.w),
+                  padding: EdgeInsets.only(bottom: 15.h, top: 5.h, left: 15.w, right: 5.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Image(
+                        alignment: Alignment.topLeft,
+                        image: const AssetImage("assets/img-home-users.png"),
+                        width: 220.w,
+                        height: 130.h,
+                        fit: BoxFit.cover,
+                      ),
                       Text(
-                        "Ayo Lapor!",
+                        "Laporkanlah!!",
                         style: homeTitle,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Mari kita bangun\nIndonesia\nmenjadi lebih baik\ndengan\nmelaporkan\npengaduanmu!",
-                            style: homeSubtitle,
-                          ),
-                          Align(
-                              alignment: Alignment.bottomRight,
-                              child: Image.asset(
-                                "assets/woman-img.png",
-                                width: 160.w,
-                                height: 174.h,
-                              )),
-                        ],
+                      Text(
+                        // "Mari bersama-sama membangun\nIndonesia\nmenjadi lebih baik\ndengan\nmelaporkan\npengaduanmu!",
+                        "Mari bersama - sama membangun indonesia menjadi lebih baik lagi, \ndengan melaporkan pengaduanmu kepada kami!",
+                        style: homeSubtitle,
                       ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
