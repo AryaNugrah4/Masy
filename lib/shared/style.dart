@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color mainColor = HexColor('#1D8B89');
-Color secondaryColor = HexColor('#164069');
+Color mainColor = HexColor('#247CFF');
+Color secondaryColor = HexColor('#6DB16B');
 Color accent = HexColor('#F3FCFB');
 Color red = HexColor('#FF6C6C');
 Color grayUnselect = HexColor('#A8A8A8');
@@ -12,7 +12,6 @@ Color blue = HexColor('#0165FF');
 Color grayB6 = HexColor('#B6C1C5');
 Color black = Colors.black;
 const mainColor2 = Color(0xff1D8B89);
-
 
 TextStyle loginTitle = GoogleFonts.poppins(
   fontSize: 26.sp,
@@ -317,7 +316,6 @@ TextStyle officerCount = GoogleFonts.poppins(
   fontWeight: FontWeight.w500,
 );
 
-
 TextStyle officerTitleBig = GoogleFonts.poppins(
   fontSize: 20.sp,
   color: mainColor,
@@ -361,5 +359,3 @@ TextStyle titleBlackRespond = GoogleFonts.poppins(
   color: black,
   fontWeight: FontWeight.w500,
 );
-
-

@@ -38,7 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             Center(
               child: Image.asset(
-                "assets/signup-img.png",
+                "assets/img-signup.png",
                 width: 180.w,
                 height: 180.h,
               ),
@@ -195,7 +195,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                 });
                               },
                               icon: Icon(
-                                _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                                _isPasswordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
                               ),
                             ),
                             hintText: "Password",
@@ -270,12 +272,17 @@ class _SignupScreenState extends State<SignupScreen> {
         builder: (context) => const Center(child: CircularProgressIndicator()),
       );
       try {
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
-        await userSetup(_fullnameController.text, int.parse(_nikController.text), _phoneController.text,
-            _usernameController.text, _emailController.text);
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+        await userSetup(
+            _fullnameController.text,
+            int.parse(_nikController.text),
+            _phoneController.text,
+            _usernameController.text,
+            _emailController.text);
         if (mounted) {
-          Navigator.of(context).pushNamedAndRemoveUntil('/botnavbar', (Route<dynamic> route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              '/botnavbar', (Route<dynamic> route) => false);
         }
       } on FirebaseAuthException catch (e) {
         log(e.toString());

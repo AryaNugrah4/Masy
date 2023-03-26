@@ -21,8 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   bool _isPasswordVisible = false;
-  final TextEditingController _emailController = TextEditingController(text: 'this.admin@gmail.com');
-  final TextEditingController _passwordController = TextEditingController(text: '12345678');
+  final TextEditingController _emailController =
+      TextEditingController(text: 'AkunAdmin@gmail.com');
+  final TextEditingController _passwordController =
+      TextEditingController(text: 'admin123');
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Center(
                 child: Image.asset(
-                  "assets/login-img.png",
-                  width: 180.w,
-                  height: 215.h,
+                  "assets/img-login.png",
+                  width: 200.w,
+                  height: 245.h,
                 ),
               ),
               Padding(
@@ -103,7 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 },
                                 icon: Icon(
-                                  _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                                  _isPasswordVisible
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                 ),
                               ),
                               hintText: "Password",
@@ -155,7 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       backgroundColor: secondaryColor,
                                     ),
                                     onPressed: () {
-                                      login(_emailController.text, _passwordController.text);
+                                      login(_emailController.text,
+                                          _passwordController.text);
                                     },
                                     child: Text(
                                       "Login",
@@ -206,23 +211,30 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = true;
       });
       try {
-        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
         if (credential.user != null) {
           final uid = credential.user!.uid;
-          final user = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+          final user = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(uid)
+              .get();
 
-          final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+          final SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
           sharedPreferences.setString('uid', uid);
 
           if (user['role'] == 'officer' || user['role'] == 'admin') {
             String role = user['role'];
             if (mounted) {
-              Navigator.of(context).pushNamedAndRemoveUntil('/menu-panel', (route) => false);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/menu-panel', (route) => false);
               buildSnackBarSuccess(context, "Login Success as $role");
             }
           } else if (user['role'] == 'public') {
             if (mounted) {
-              Navigator.pushNamedAndRemoveUntil(context, '/botnavbar', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/botnavbar', (route) => false);
               buildSnackBarSuccess(context, "Login Success");
             }
           }
