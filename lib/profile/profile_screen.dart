@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(10.r),
                 image: const DecorationImage(
                   alignment: Alignment.bottomCenter,
-                  image: AssetImage("assets/profile-img.png"),
+                  image: AssetImage("assets/profile-img1.png"),
                 ),
               ),
               child: Column(

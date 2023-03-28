@@ -147,9 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(
-                height: 26.h,
+                height: 24.h,
               ),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
@@ -158,11 +158,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       // print(currentId);
                     },
                     child: Container(
-                      width: 142.w,
-                      height: 94.h,
+                      width: 314.w,
+                      height: 95.h,
                       padding: EdgeInsets.only(top: 13.h, bottom: 13.h),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: test,
                         borderRadius: BorderRadius.circular(7.r),
                         boxShadow: [
                           mainBoxShadow,
@@ -172,8 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: 40.w,
-                            height: 40.h,
+                            width: 45.w,
+                            height: 45.h,
                             padding: const EdgeInsets.all(7),
                             decoration: BoxDecoration(
                               color: secondaryColor,
@@ -196,16 +196,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, "/history");
                     },
                     child: Container(
-                      width: 142.w,
-                      height: 94.h,
+                      width: 314.w,
+                      height: 95.h,
                       padding: EdgeInsets.only(top: 13.h, bottom: 13.h),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: test,
                         borderRadius: BorderRadius.circular(7.r),
                         boxShadow: [
                           mainBoxShadow,
@@ -232,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 5.h,
                           ),
                           Text(
-                            "Riwayat",
+                            "History",
                             style: homeItem,
                           ),
                         ],

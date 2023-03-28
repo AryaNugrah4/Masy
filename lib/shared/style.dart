@@ -4,9 +4,10 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Color mainColor = HexColor('#247CFF');
-Color bgColor = HexColor('#90949B');
+Color bgColor = HexColor('#98CDCA');
 Color secondaryColor = HexColor('#6DB16B');
-Color accent = HexColor('#F3FCFB');
+Color test = HexColor('#FAEDD3');
+Color accent = HexColor('#CBF1CA');
 Color red = HexColor('#FF6C6C');
 Color grayUnselect = HexColor('#A8A8A8');
 Color blue = HexColor('#0165FF');
