@@ -34,6 +34,7 @@ dependencies:
   readmore: ^2.2.0
   shared_preferences: ^2.0.18
   shimmer: ^2.0.0
+  flutter_native_splash: ^2.2.19
   syncfusion_flutter_datepicker: ^20.4.54
 
 dev_dependencies:
@@ -52,6 +53,20 @@ flutter_icons:
   remove_alpha_ios: true
   image_path: "assets/logo.png"
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/logo-ss.png
+  color_dark: "#121212"
+  image_dark: assets/logo-ss.png
+
+  android_12:
+    image: assets/logo-ss.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/logo-ss.png
+    icon_background_color_dark: "#121212"
+
+  web: false
 
 flutter:
   uses-material-design: true

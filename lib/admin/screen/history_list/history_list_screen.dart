@@ -35,13 +35,13 @@ class _HistoryListScreenState extends State<HistoryListScreen> {
     });
   }
 
-  Future exportHistoryToExcel() async {
+  Future exportHistoryToExcel(context) async {
     PermissionStatus status = await Permission.storage.request();
     if (status != PermissionStatus.granted) return;
 
     Directory? directory = await getExternalStorageDirectory();
     String fileName = "historyLog.xlsx";
-    String filePath = "${directory!.parent.parent.parent.parent.path}/Download/$fileName";
+    String filePath = "${directory!.path}/$fileName";
 
     try {
       QuerySnapshot querySnapshot = await db.collection('history').get();
@@ -98,7 +98,8 @@ class _HistoryListScreenState extends State<HistoryListScreen> {
         },
         btnOkText: 'Kembali Ke Home',
         btnOkOnPress: () {
-          Navigator.pushNamedAndRemoveUntil(context, '/menu-panel', (route) => false);
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/menu-panel', (route) => false);
         },
       ).show();
     } catch (e) {
@@ -128,7 +129,8 @@ class _HistoryListScreenState extends State<HistoryListScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 20.h, left: 30.w, right: 21.w, bottom: 30.h),
+          padding:
+              EdgeInsets.only(top: 20.h, left: 30.w, right: 21.w, bottom: 30.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -154,10 +156,11 @@ class _HistoryListScreenState extends State<HistoryListScreen> {
                           style: officerCount,
                         ),
                   TextButton(
-                      onPressed: () {
-                        exportHistoryToExcel();
+                      onPressed: () async {
+                        await exportHistoryToExcel(context);
                       },
-                      style: TextButton.styleFrom(backgroundColor: Colors.transparent, elevation: 0),
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.transparent, elevation: 0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -182,57 +185,61 @@ class _HistoryListScreenState extends State<HistoryListScreen> {
                 style: officerTitleBig,
               ),
               SizedBox(height: 10.h),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HistoryAddScreen()));
-                },
-                child: Container(
-                  width: 306.w,
-                  height: 50.h,
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
-                  decoration: BoxDecoration(
-                    color: mainColor.withOpacity(0.05),
-                    borderRadius: BorderRadius.circular(7.r),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 40.w,
-                            height: 40.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              color: secondaryColor.withOpacity(0.50),
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.add_rounded,
-                                color: accent,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Text(
-                            'Add a new History',
-                            style: officerAdd,
-                          ),
-                        ],
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: secondaryColor,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 35.h),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const HistoryAddScreen()));
+              //   },
+              //   child: Container(
+              //     width: 306.w,
+              //     height: 50.h,
+              //     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+              //     decoration: BoxDecoration(
+              //       color: mainColor.withOpacity(0.05),
+              //       borderRadius: BorderRadius.circular(7.r),
+              //     ),
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Row(
+              //           crossAxisAlignment: CrossAxisAlignment.center,
+              //           children: [
+              //             Container(
+              //               width: 40.w,
+              //               height: 40.h,
+              //               decoration: BoxDecoration(
+              //                 borderRadius: BorderRadius.circular(10.r),
+              //                 color: secondaryColor.withOpacity(0.50),
+              //               ),
+              //               child: Center(
+              //                 child: Icon(
+              //                   Icons.add_rounded,
+              //                   color: accent,
+              //                 ),
+              //               ),
+              //             ),
+              //             SizedBox(
+              //               width: 10.w,
+              //             ),
+              //             Text(
+              //               'Add a new History',
+              //               style: officerAdd,
+              //             ),
+              //           ],
+              //         ),
+              //         Icon(
+              //           Icons.arrow_forward_ios_rounded,
+              //           color: secondaryColor,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+
+              // SizedBox(height: 35.h),
               StreamBuilder<QuerySnapshot>(
                 stream: db.collection('history').snapshots(),
                 builder: (context, snapshot) {
@@ -257,77 +264,147 @@ class _HistoryListScreenState extends State<HistoryListScreen> {
                             SizedBox(
                               width: 306.w,
                               height: 70.h,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                          borderRadius: BorderRadius.circular(13.r),
-                                          child: Image.asset(
-                                            "assets/default.png",
-                                            width: 50.w,
-                                            height: 50.h,
-                                            fit: BoxFit.cover,
-                                          )),
-                                      SizedBox(
-                                        width: 7.w,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            // user['fullname'],
-                                            data['email'],
-                                            style: officerName,
-                                          ),
-                                          SizedBox(
-                                            width: 200.w,
-                                            child: Text(
-                                              // user['role'],
-                                              // "Pengaduan 'Jalan Bolong' baru saja ditambahkan",
-                                              data['log'],
-                                              style: officerRole,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(4.r)),
+                                padding: EdgeInsets.only(
+                                  left: 5,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(13.r),
+                                            child: Image.asset(
+                                              "assets/default.png",
+                                              width: 50.w,
+                                              height: 50.h,
+                                              fit: BoxFit.cover,
+                                            )),
+                                        SizedBox(
+                                          width: 7.w,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              // user['fullname'],
+                                              data['email'],
+                                              style: officerName,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => HistoryAddScreen(
-                                                      isEdit: true,
-                                                      log: data['log'],
-                                                      email: data['email'],
-                                                      logId: data.id,
-                                                    )));
+                                            SizedBox(
+                                              width: 200.w,
+                                              child: Text(
+                                                // user['role'],
+                                                // "Pengaduan 'Jalan Bolong' baru saja ditambahkan",
+                                                data['log'],
+                                                style: officerRole,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HistoryAddScreen(
+                                                        isEdit: true,
+                                                        log: data['log'],
+                                                        email: data['email'],
+                                                        logId: data.id,
+                                                      )));
 
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => HistoryEditScreen(
-                                        //             users: Users.fromJson(user.data() as Map<String, dynamic>))));
-                                      },
-                                      icon: Icon(
-                                        Icons.remove_red_eye_rounded,
-                                        color: mainColor,
-                                      )),
-                                ],
+                                          // Navigator.push(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //         builder: (context) => HistoryEditScreen(
+                                          //             users: Users.fromJson(user.data() as Map<String, dynamic>))));
+                                        },
+                                        icon: Icon(
+                                          Icons.remove_red_eye_rounded,
+                                          color: mainColor,
+                                        )),
+                                  ],
+                                ),
                               ),
                             ),
+                            SizedBox(
+                              height: 10.h,
+                            )
                           ],
                         );
                       }).toList(),
                     );
                   }
                 },
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomSheet: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HistoryAddScreen()));
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 15.h),
+          width: 1.sw,
+          height: 72.h,
+          decoration: BoxDecoration(
+            color: mainColor.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(7.r),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 40.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      color: secondaryColor.withOpacity(0.50),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add_rounded,
+                        color: accent,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    'Add a new History',
+                    style: officerAdd,
+                  ),
+                ],
+              ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: secondaryColor,
               ),
             ],
           ),

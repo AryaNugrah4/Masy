@@ -65,7 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: [
                           TextFormField(
-                          
                             controller: _emailController,
                             style: inputLogin,
                             keyboardType: TextInputType.emailAddress,
@@ -76,7 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
                               hintText: "Email",
                               hintStyle: hintLogin,
                               prefixIcon: Image.asset(
@@ -100,6 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                             decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {

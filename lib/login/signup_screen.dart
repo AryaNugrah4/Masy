@@ -72,6 +72,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           },
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
                             hintText: "Nama Lengkap",
                             hintStyle: hintLogin,
                             prefixIcon: Image.asset(
@@ -97,6 +99,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
                             hintText: "NIK",
                             hintStyle: hintLogin,
                             prefixIcon: Image.asset(
@@ -120,6 +124,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
                             hintText: "Telepon",
                             hintStyle: hintLogin,
                             prefixIcon: Image.asset(
@@ -142,6 +148,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           },
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
                             hintText: "Username",
                             hintStyle: hintLogin,
                             prefixIcon: Image.asset(
@@ -165,6 +173,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           },
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
                             hintText: "Email",
                             hintStyle: hintLogin,
                             prefixIcon: Image.asset(
@@ -188,6 +198,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           },
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
